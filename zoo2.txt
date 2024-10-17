@@ -1,0 +1,55 @@
+import sys
+
+from zoo import Zoo, Emlos
+
+
+def main() -> None:
+    try:
+        n = int(sys.argv[1])
+        allatok = []
+        for i in range(n):
+            line = input()
+            tokens = line.split(";")
+            if len(tokens) == 3:
+                allat = Zoo(tokens[0], float(tokens[2]), float(tokens[1]))
+                allatok.append(allat)
+            else:
+                emlos = Emlos(tokens[0], float(tokens[2]), float(tokens[1]))
+                allatok.append(emlos)
+        allatok.sort()
+        for allatt in allatok:
+            print(allatt)
+
+    except IndexError:
+        print("nincs megadva parancssori argumentum")
+
+    except ValueError:
+        print("parancssori argumentum értéke hibás")
+
+
+def main2() -> None:
+    try:
+        n = int(sys.argv[1])
+        allatok = []
+        for i in sys.stdin:
+            line = input()
+            tokens = line.split(";")
+            if len(tokens) == 3:
+                allat = Zoo(tokens[0], float(tokens[2]), float(tokens[1]))
+                allatok.append(allat)
+            else:
+                emlos = Emlos(tokens[0], float(tokens[2]), float(tokens[1]))
+                allatok.append(emlos)
+        allatok.sort()
+        for allatt in allatok:
+            print(allatt)
+
+    except IndexError:
+        print("nincs megadva parancssori argumentum")
+
+    except ValueError:
+        print("parancssori argumentum értéke hibás")
+
+
+if __name__ == '__main__':
+    main2()

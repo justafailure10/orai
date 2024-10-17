@@ -1,0 +1,71 @@
+from __future__ import annotations
+
+from functools import total_ordering
+
+
+@total_ordering
+class Zoo:
+    faj: str  # tokens[0]
+    __kora: float  # tokens[2]
+    _suly: float  # tokens[1]
+
+    def __init__(self, faj: str, suly: float, kora: float = 0.0):
+        self.faj = faj
+        self.__kora = float(kora)
+        self._suly = float(suly)
+
+    @property  # 3
+    def kor(self) -> float:
+        return self.kor
+
+    @property  # 3
+    def suly(self) -> float:
+        return self._suly
+
+    @suly.setter  # 3
+    def suly(self, value: float):
+        if value < 1:
+            raise ValueError
+        self._suly = value
+
+    def __repr__(self):  # 4
+        return f"{self.faj}, {self._suly}, {self.__kora}"
+
+    def __str__(self):  # 5
+        return f"{self.faj}: {self.__kora} év, {self._suly} kg"
+
+    def __eq__(self, other: Zoo) -> bool:  # 6
+        return isinstance(other, Zoo) and (self.faj, self.__kora, self.suly) == (other.faj, other.__kora, other.suly)
+
+    def __lt__(self, other):  # 7
+        if not isinstance(other, Zoo):
+            return NotImplemented
+        return (self.faj, -self.__kora, self._suly) < (other.faj, -other.__kora, other._suly)
+
+    @staticmethod  # 8
+    def ages(animals: list[Zoo], spec: str) -> list:
+        age = []
+        for xd in animals:
+            if xd.faj == spec:
+                age.append(xd.kor)
+        return age
+
+
+class Emlos(Zoo):
+    def __init__(self, faj: str, suly: float, labak, kora: float = 0.0):
+        super().__init__(faj, suly, kora)
+        self.__labak = labak
+
+    def __repr__(self):
+        return f"{super().__repr__()},{self.__labak}"
+
+    def __str__(self):
+        return f"{super().__str__()} (lábak száma:{self.__labak})"
+
+    @property
+    def labak(self):
+        return self.__labak
+
+    @labak.setter
+    def labak(self, value: float):
+        self.__labak = value
